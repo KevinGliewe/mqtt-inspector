@@ -21,7 +21,6 @@ THE SOFTWARE.
 
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import TopicTree from '../components/topic_tree.svelte';
 	import {
 		Button,
 		Content,
@@ -36,19 +35,13 @@ THE SOFTWARE.
 		SideNavLink,
 		SideNavMenu,
 		SkipToContent,
-		Tab,
-		TabContent,
-		Tabs,
 		Theme
 	} from 'carbon-components-svelte';
 	import 'carbon-components-svelte/css/all.css';
-	import Messages from '../components/messages.svelte';
 	import AddBroker from '../components/dialogs/add_broker.svelte';
 	import { Add, CircleDash, CircleSolid, Connect, LogoGithub, TrashCan } from 'carbon-icons-svelte';
-	import PublishMessage from '../components/publish_message.svelte';
 	import type { CarbonTheme } from 'carbon-components-svelte/src/Theme/Theme.svelte';
 	import { page } from '$app/stores';
-	import Pipeline from '../components/pipeline.svelte';
 	import { AppState } from '$lib/state';
 	import {
 		processBrokerRemoval,
@@ -60,6 +53,7 @@ THE SOFTWARE.
 	} from '$lib/ws_msg_handling';
 	import RemoveBroker from '../components/dialogs/remove_broker.svelte';
 	import { requestMqttBrokerConnection } from '$lib/socket';
+	import MainContent from '../components/mainContent.svelte';
 
 	let socket: WebSocket;
 	let app = new AppState();
@@ -230,38 +224,7 @@ THE SOFTWARE.
 
 	{#if app.brokerRepository[app.selectedBroker]}
 		<Grid fullWidth>
-			<div style="height: calc(100vh - 8em) !important; display: flex; flex-direction: column">
-				<div style="display: flex">
-					<div style="flex: 1; margin: 1em; min-width: 30em; max-width: 50em">
-						<Tabs autoWidth type="container">
-							<Tab label="Treeview" />
-							<Tab label="Pipeline" />
-							<svelte:fragment slot="content">
-								<TabContent>
-									<TopicTree bind:broker={app.brokerRepository[app.selectedBroker]} />
-								</TabContent>
-								<TabContent>
-									<Pipeline
-										bind:pipelines={app.pipelines}
-										bind:broker={app.brokerRepository[app.selectedBroker]}
-										bind:socket
-									/>
-								</TabContent>
-							</svelte:fragment>
-						</Tabs>
-					</div>
-					<div style="flex: 1; margin: 1em; min-width: 30em; max-width: 60em">
-						<Messages bind:broker={app.brokerRepository[app.selectedBroker]} />
-					</div>
-				</div>
-				<div style="flex: 1;" />
-				<PublishMessage
-					bind:savedCommands={app.commands}
-					bind:selectedBroker={app.selectedBroker}
-					bind:socket
-					bind:broker={app.brokerRepository[app.selectedBroker]}
-				/>
-			</div>
+			<MainContent bind:app bind:socket />
 		</Grid>
 	{/if}
 </Content>

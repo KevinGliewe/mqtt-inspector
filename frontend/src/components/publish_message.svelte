@@ -151,7 +151,7 @@ THE SOFTWARE.
 					/>
 				</div>
 			</div>
-			<div style="height: 30em">
+			<div style="height: 30em; margin-top: 1em">
 				<Monaco bind:result={payload} />
 			</div>
 

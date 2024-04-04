@@ -47,7 +47,7 @@ THE SOFTWARE.
 	{#if broker.selectedTopic?.messages.length > 1}
 		<Tile light>
 			<h5>History ({broker.selectedTopic.messages.length})</h5>
-			<div style="overflow-y: auto; max-height: 50vh;">
+			<div style="overflow-y: auto; max-height: 50vh; margin-top: 1em">
 				<Accordion>
 					{#each broker.selectedTopic?.messages as message}
 						<AccordionItem
