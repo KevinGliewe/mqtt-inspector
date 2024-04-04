@@ -29,13 +29,14 @@ THE SOFTWARE.
 	export let result: string = '';
 
 	let editorElement: HTMLDivElement;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	let editor: any;
 
 	onMount(async () => {
 		const monaco = await import('monaco-editor');
 
 		self.MonacoEnvironment = {
-			getWorker: function (_: any, label: string) {
+			getWorker: function () {
 				return new jsonWorker();
 			}
 		};
