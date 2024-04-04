@@ -33,6 +33,8 @@ THE SOFTWARE.
 	let winWidth: number;
 </script>
 
+<svelte:window bind:innerWidth={winWidth} />
+
 <div style="height: calc(100vh - 8em) !important; display: flex; flex-direction: column">
 	<div style="display: flex">
 		<div style="flex: 1; margin: 1em; min-width: 30em; max-width: 50em">
@@ -53,6 +55,9 @@ THE SOFTWARE.
 				</svelte:fragment>
 			</Tabs>
 		</div>
+		{#if winWidth > 1920}
+			<div style="flex: 0.25" />
+		{/if}
 		<div style="flex: 1; margin: 1em; min-width: 30em; max-width: 60em">
 			<Messages bind:broker={app.brokerRepository[app.selectedBroker]} />
 		</div>
